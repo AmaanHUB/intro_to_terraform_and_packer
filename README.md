@@ -86,8 +86,8 @@ resource "aws_instance" "nodejs_app_instance" {
 }
 ```
 
-* You'll notice that a security group has been defined within this document
-## TODO
+* You'll notice that a security group has been defined within this document too, though an improvement for this could be to put it into a separate file
+# TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
 - [ ] Explain the `app_packer.json` file

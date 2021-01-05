@@ -1,5 +1,4 @@
 # tell which cloud provider is required
-     cidr_blocks = ["172.31.24.209/32"]
 provider "aws" {
   region = var.region
 }

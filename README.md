@@ -13,7 +13,6 @@ packer validate
 # run packer
 packer build
 ```
-
 ### Security
 
 * One usually doesn't want to put the AWS access and secret keys within the packer file, as this is not particularly secure. What one can do instead is export them to bash environment variables by doing the following commands:
@@ -34,10 +33,10 @@ source ~/.bashrc
 * It helps scale up and down as per the user demand
 * Can take a customised AMI (using AWS access and secret keys) and create an EC2 etc from this
 
-## HCL (Hashicorp Control Language) Language
+### HCL (Hashicorp Control Language) Language
 
 * Used in Terraform, syntax similar to JSON
-* In a file named `<something>.tf`, one first declares the provider (.e.g. GCP, AWS):
+* In a file named `<something>.tf` (`main.tf` in our case, one first declares the provider (.e.g. GCP, AWS):
 ```
 provider "aws" {
   region = "eu-west-1"
@@ -53,8 +52,41 @@ export AWS_ACCESS_KEY=<something>
 * Run `terraform plan` to check
 * Run `terraform apply` to actually run the terraform file to create the EC2
 
+### Explanations
 
+#### Variables
 
+* In this current set up, I have two main files (likely to change into three in the future), one that contains all the code that will be run, and another that declares variables in, so that it is more maintainable.
+* The basic syntax for setting variables, is below:
+```
+variable "name" {
+  default = "whatever_I_want_here"
+}
+```
+* These variables are called in the `main.tf` with the following syntax:
+```
+region = var.region
+```
+
+#### Main file (main.tf)
+
+* The main file is reasonably simple in syntax, with each block of code being instantiated with the word `resource`, then a `"type"` and then whatever one decides to call it for referencing within terraform (see below)
+```
+resource "aws_instance" "nodejs_app_instance" {
+  # ami_id of the app image created by packer
+  ami = var.nodejs_app_ami
+  instance_type = "t2.micro"
+  associate_public_ip_address = true
+  # associate with an already made security group with the relevant rules
+  security_groups = ["eng74-amaan-ansible"]
+  tags = {
+    Name = "eng74-amaan-nodeapp_terraform"
+  }
+  key_name = var.key_name
+}
+```
+
+* You'll notice that a security group has been defined within this document
 ## TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file

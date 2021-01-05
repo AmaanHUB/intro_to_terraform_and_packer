@@ -29,13 +29,30 @@ source ~/.bashrc
 ## HCL (Hashicorp Control Language) Language
 
 * Used in Terraform, syntax similar to JSON
-* First need to `terraform init` to initialise the directory
+* In a file named `<something>.tf`, one first declares the provider (.e.g. GCP, AWS):
+```
+provider "aws" {
+  region = "eu-west-1"
+}
+```
+* Need to `terraform init` to initialise the provider etc
+* To use the AWS_ACCESS_KEY and AWS_SECRET_KEY, one can export them temporarily into the current shell (that you are using to do the terraform commands) with:
+	* Though if you have added it to the `~/.bashrc` like in the Packer/Security section, you shouldn't need to do this
+```
+export AWS_SECRET_KEY=<something>
+export AWS_ACCESS_KEY=<something>
+```
+* Run `terraform plan` to check
+* Run `terraform apply` to actually run the terraform file to create the EC2
+
+
 
 ## TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
-- [x] Explain the `app_packer.json` file
+- [ ] Explain the `app_packer.json` file
 - [ ] Explanation of what terraform is and used for
 	- [ ] Compare with Ansible
 - [ ] Create a Terraform file to spin up EC2 instances
 	- [ ] Iterate by putting up both EC2 instances (for DB and App)
+- [ ] Explanation of the main.tf

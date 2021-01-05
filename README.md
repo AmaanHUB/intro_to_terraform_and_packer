@@ -22,12 +22,19 @@ source ~/.bashrc
 
 ## Terraform
 
-* Can take the AMI (using AWS access and secret keys) and create an EC2 etc from this
+* A Hashicorp IAC orchestration tool which allows one to create IAC for deployment that is cloud provider independent (.e.g. AWS, GCP, DigitalOcean etc)
+* It helps scale up and down as per the user demand
+* Can take a customised AMI (using AWS access and secret keys) and create an EC2 etc from this
+
+## HCL (Hashicorp Control Language) Language
+
+* Used in Terraform, syntax similar to JSON
+* First need to `terraform init` to initialise the directory
 
 ## TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
-- [ ] Explain the `app_packer.json` file
+- [x] Explain the `app_packer.json` file
 - [ ] Explanation of what terraform is and used for
 	- [ ] Compare with Ansible
 - [ ] Create a Terraform file to spin up EC2 instances

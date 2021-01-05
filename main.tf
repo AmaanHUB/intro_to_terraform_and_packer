@@ -45,6 +45,15 @@ resource "aws_security_group" "sg_db" {
      cidr_blocks = ["172.31.24.209/32"]
    }
 
+  ingress {
+    description = "SSH from nodejs_app_instance"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+     # hard coded nodejs_app_instance private ip, need to automate
+     cidr_blocks = ["172.31.24.209/32"]
+   }
+
    egress {
      from_port = 0
      to_port = 0

@@ -79,3 +79,6 @@ output "ip" {
   value = [aws_instance.nodejs_app_instance.*.public_ip, aws_instance.nodejs_app_instance.*.private_ip]
 }
 
+output "mongod_ip" {
+  value = [aws_instance.mongodb_instance.*.public_ip, aws_instance.mongodb_instance.*.private_ip]
+}

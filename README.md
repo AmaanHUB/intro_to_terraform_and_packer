@@ -5,6 +5,14 @@
 * Hashicorp tool to create machine images (Amazon Machine Images [AMI] in this context), that can be spun up with all the relevant programs and configurations installed
 		* Used an Ansible script to provision within the Packer file (in json format)
 * It works by spinning up an instance (EC2 in this context), running the Ansible playbook, create an image from this and then delete the instance that was previously created
+* Running packer:
+```
+# check syntax
+packer validate
+
+# run packer
+packer build
+```
 
 ### Security
 

@@ -1,11 +1,11 @@
 # tell which cloud provider is required
 provider "aws" {
-  region = "eu-west-1"
+  region = var.region
 }
 
 resource "aws_instance" "nodejs_app_instance" {
   # ami_id of the app image created by packer
-  ami = "ami-090c52809b287ad01"
+  ami = var.nodejs_app_ami
   instance_type = "t2.micro"
   associate_public_ip_address = true
   # associate with an already made security group with the relevant rules
@@ -13,7 +13,7 @@ resource "aws_instance" "nodejs_app_instance" {
   tags = {
     Name = "eng74-amaan-nodeapp_terraform"
   }
-  key_name = "eng74-amaan-aws"
+  key_name = var.key_name
 }
 
 resource "aws_security_group" "sg_db" {
@@ -42,7 +42,7 @@ resource "aws_security_group" "sg_db" {
      to_port = 27017
      protocol = "tcp"
      # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["172.31.24.209/32"]
+     cidr_blocks = ["172.31.0.0/16"]
    }
 
   ingress {
@@ -51,7 +51,7 @@ resource "aws_security_group" "sg_db" {
     to_port = 22
     protocol = "tcp"
      # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["172.31.24.209/32"]
+     cidr_blocks = ["172.31.0.0/16"]
    }
 
    egress {
@@ -65,7 +65,7 @@ resource "aws_security_group" "sg_db" {
 
 
 resource "aws_instance" "mongodb_instance" {
-  ami = "ami-0ac79c29e0394a94f"
+  ami = var.mongodb_ami
   instance_type = "t2.micro"
   associate_public_ip_address = true
   security_groups = ["SG_DB_Terraform"]
@@ -78,3 +78,4 @@ resource "aws_instance" "mongodb_instance" {
 output "ip" {
   value = [aws_instance.nodejs_app_instance.*.public_ip, aws_instance.nodejs_app_instance.*.private_ip]
 }
+

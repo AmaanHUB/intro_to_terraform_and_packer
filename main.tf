@@ -11,4 +11,5 @@ resource "aws_instance" "nodejs_app_instance" {
   tags = {
     Name = "eng74-amaan-nodeapp_terraform"
   }
+  key_name = "eng74-amaan-aws"
 }

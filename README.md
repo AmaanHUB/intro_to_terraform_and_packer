@@ -25,8 +25,8 @@ source ~/.bashrc
 * Can take the AMI (using AWS access and secret keys) and create an EC2 etc from this
 
 ## TODO
-- [*] Explain what packer is and used for
-- [*] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
+- [x] Explain what packer is and used for
+- [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
 - [ ] Explain the `app_packer.json` file
 - [ ] Explanation of what terraform is and used for
 	- [ ] Compare with Ansible

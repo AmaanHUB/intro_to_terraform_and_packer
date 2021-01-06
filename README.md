@@ -86,13 +86,13 @@ resource "aws_instance" "nodejs_app_instance" {
 }
 ```
 
-* You'll notice that a security group has been defined within this document too, though an improvement for this could be to put it into a separate file
+#### Security Groups (security_groups.tf)
 # TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
 - [ ] Explain the `app_packer.json` file
-- [ ] Explanation of what terraform is and used for
+- [x] Explanation of what terraform is and used for
 	- [ ] Compare with Ansible
-- [ ] Create a Terraform file to spin up EC2 instances
-	- [ ] Iterate by putting up both EC2 instances (for DB and App)
+- [x] Create a Terraform file to spin up EC2 instances
+	- [x] Iterate by putting up both EC2 instances (for DB and App)
 - [ ] Explanation of the main.tf

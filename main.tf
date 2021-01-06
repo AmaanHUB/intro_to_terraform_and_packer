@@ -9,7 +9,7 @@ resource "aws_instance" "nodejs_app_instance" {
   instance_type = "t2.micro"
   associate_public_ip_address = true
   # associate with an already made security group with the relevant rules
-  security_groups = ["eng74-amaan-ansible"]
+  security_groups = ["eng74-amaan-SG_APP_Terraform"]
   tags = {
     Name = "eng74-amaan-nodeapp_terraform"
   }

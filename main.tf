@@ -14,6 +14,12 @@ resource "aws_instance" "nodejs_app_instance" {
     Name = "eng74-amaan-nodeapp_terraform"
   }
   key_name = var.key_name
+
+  provisioner "start_app" {
+    inline = [
+      "cd /home/ubuntu/app && sudo pm2 start app.js"
+    ]
+  }
 }
 
 resource "aws_instance" "mongodb_instance" {
@@ -25,6 +31,12 @@ resource "aws_instance" "mongodb_instance" {
     Name = "eng74-amaan-DB_terraform"
   }
   key_name = "eng74-amaan-aws"
+
+  provisioner "start_db" {
+    inline = [
+      "sudo systemctl enable mongod.service --now"
+    ]
+  }
 }
 
 output "ip" {

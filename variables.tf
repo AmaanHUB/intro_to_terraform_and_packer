@@ -15,11 +15,11 @@ variable "mongodb_ami" {
 }
 
 variable "nodejs_app_SG" {
-  default = "ami-0ac79c29e0394a94f"
+  default = "eng74-amaan-SG_APP_Terraform"
 }
 
 variable "mongodb_SG" {
-  default = "SG_DB_Terraform"
+  default = "eng74-amaan-SG_DB_Terraform"
 }
 
 

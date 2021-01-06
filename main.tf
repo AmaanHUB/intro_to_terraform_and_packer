@@ -15,28 +15,30 @@ resource "aws_instance" "nodejs_app_instance" {
   }
   key_name = var.key_name
 
-  provisioner "remote_exec" {
-    inline = [
-      "cd /home/ubuntu/app && sudo pm2 start app.js"
-    ]
-  }
+  #   provisioner "remote_exec" {
+  #     inline = [
+  #       "cd /home/ubuntu/app && sudo pm2 start app.js"
+  #     ]
+  #   }
+  #   need a connection bit here too
 }
 
 resource "aws_instance" "mongodb_instance" {
   ami = var.mongodb_ami
   instance_type = "t2.micro"
   associate_public_ip_address = true
-  security_groups = ["SG_DB_Terraform"]
+  security_groups = ["eng74-amaan-SG_DB_Terraform"]
   tags = {
     Name = "eng74-amaan-DB_terraform"
   }
-  key_name = "eng74-amaan-aws"
+  key_name = var.key_name
 
-  provisioner "remote_exec" {
-    inline = [
-      "sudo systemctl enable mongod.service --now"
-    ]
-  }
+  #   provisioner "remote_exec" {
+  #     inline = [
+  #       "sudo systemctl enable mongod.service --now"
+  #     ]
+  #   }
+  #   need a connection bit here too
 }
 
 output "ip" {

@@ -1,14 +1,15 @@
 resource "aws_security_group" "sg_app" {
   name = "eng74-amaan-SG_APP_Terraform"
-  description = "Allows the app to communicate with the db etc"
+  description = "Allows the app to communicate with the db etc on public subnet"
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     description = "SSH"
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    #not done my specific home IP since this will be on github
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["$(curl ifconfig.me)/32"]
+  }
 
   ingress {
     description = "HTTP for updates"
@@ -79,7 +80,7 @@ resource "aws_security_group" "sg_db" {
     to_port = 22
     protocol = "tcp"
      # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["172.31.0.0/16"]
+     cidr_blocks = ["$(curl ifconfig.me)/32"]
    }
 
    egress {

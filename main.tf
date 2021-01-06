@@ -15,7 +15,7 @@ resource "aws_instance" "nodejs_app_instance" {
   }
   key_name = var.key_name
 
-  provisioner "start_app" {
+  provisioner "remote_exec" {
     inline = [
       "cd /home/ubuntu/app && sudo pm2 start app.js"
     ]
@@ -32,7 +32,7 @@ resource "aws_instance" "mongodb_instance" {
   }
   key_name = "eng74-amaan-aws"
 
-  provisioner "start_db" {
+  provisioner "remote_exec" {
     inline = [
       "sudo systemctl enable mongod.service --now"
     ]

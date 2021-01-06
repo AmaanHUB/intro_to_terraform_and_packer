@@ -8,7 +8,7 @@ resource "aws_security_group" "sg_app" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["$(curl ifconfig.me)/32"]
+    cidr_blocks = ["81.104.154.91/32"]
   }
 
   ingress {
@@ -27,20 +27,16 @@ resource "aws_security_group" "sg_app" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-   ingress {
-     description = "For the MongoDB communication"
-     from_port = 27017
-     to_port = 27017
-     protocol = "tcp"
-     # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["172.31.0.0/16"]
-   }
 
    egress {
      from_port = 0
      to_port = 0
-     protocol = "tcp"
+     protocol = -1
      cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "eng74-amaan-SG_APP_Terraform"
   }
 }
 
@@ -48,6 +44,7 @@ resource "aws_security_group" "sg_app" {
 resource "aws_security_group" "sg_db" {
   name = "eng74-amaan-SG_DB_Terraform"
   description = "a security group created by terraform, supposed to let the db communicate with the app"
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     description = "HTTP for updates"
@@ -71,7 +68,7 @@ resource "aws_security_group" "sg_db" {
      to_port = 27017
      protocol = "tcp"
      # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["172.31.0.0/16"]
+     cidr_blocks = ["23.15.0.0/16"]
    }
 
   ingress {
@@ -80,7 +77,7 @@ resource "aws_security_group" "sg_db" {
     to_port = 22
     protocol = "tcp"
      # hard coded nodejs_app_instance private ip, need to automate
-     cidr_blocks = ["$(curl ifconfig.me)/32"]
+    cidr_blocks = ["81.104.154.91/32"]
    }
 
    egress {
@@ -88,6 +85,10 @@ resource "aws_security_group" "sg_db" {
      to_port = 0
      protocol = "tcp"
      cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "eng74-amaan-SG_DB_Terraform"
   }
 }
 

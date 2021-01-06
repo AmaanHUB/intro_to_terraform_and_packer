@@ -22,6 +22,8 @@ variable "mongodb_SG" {
   default = "eng74-amaan-SG_DB_Terraform"
 }
 
-
+variable "aws_key_path" {
+  default = "~/.ssh/eng74-amaan-aws.pem"
+}
 
 

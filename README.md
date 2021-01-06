@@ -87,6 +87,7 @@ resource "aws_instance" "nodejs_app_instance" {
 ```
 
 #### Security Groups (security_groups.tf)
+
 # TODO
 - [x] Explain what packer is and used for
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
@@ -96,3 +97,4 @@ resource "aws_instance" "nodejs_app_instance" {
 - [x] Create a Terraform file to spin up EC2 instances
 	- [x] Iterate by putting up both EC2 instances (for DB and App)
 - [ ] Explanation of the main.tf
+- [ ] Automate the commands (starting mongodb and the app) on ![startup](https://stackoverflow.com/questions/62514248/unable-to-execute-remote-command-with-terraform-provisioner-remote-exec#62515717)

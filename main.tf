@@ -3,6 +3,11 @@ provider "aws" {
   region = var.region
 }
 
+# myip module
+module "myip" {
+  source  = "4ops/myip/http"
+  version = "1.0.0"
+}
 
 #database instance
 resource "aws_instance" "mongodb_instance" {

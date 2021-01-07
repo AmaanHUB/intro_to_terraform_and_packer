@@ -26,9 +26,8 @@ resource "aws_network_acl" "public_nacl" {
     protocol = "tcp"
     rule_no = 100
     action = "allow"
-    cidr_block = "81.104.154.91/32"
+    cidr_block = "${module.myip.address}/32"
     from_port = 22
-    to_port = 22
   }
 
   ingress {
@@ -93,7 +92,7 @@ resource "aws_network_acl" "private_nacl" {
     protocol = "tcp"
     rule_no = 120
     action = "allow"
-    cidr_block = "81.104.154.91/32"
+    cidr_block = "${module.myip.address}/32"
     from_port = 22
     to_port = 22
   }

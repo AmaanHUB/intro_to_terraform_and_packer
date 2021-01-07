@@ -8,7 +8,7 @@ resource "aws_security_group" "sg_app" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-    cidr_blocks = ["81.104.154.91/32"]
+    cidr_blocks = ["${module.myip.address}/32"]
   }
 
   ingress {
@@ -76,8 +76,7 @@ resource "aws_security_group" "sg_db" {
     from_port = 22
     to_port = 22
     protocol = "tcp"
-     # hard coded nodejs_app_instance private ip, need to automate
-    cidr_blocks = ["81.104.154.91/32"]
+    cidr_blocks = ["${module.myip.address}/32"]
    }
 
    egress {

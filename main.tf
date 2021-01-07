@@ -186,7 +186,7 @@ resource "aws_instance" "mongodb_instance" {
     type = "ssh"
     user = "ubuntu"
     private_key = file(var.aws_key_path)
-    host = "${self.public_ip}"
+    host = self.public_ip
   }
   provisioner "remote-exec" {
     inline = [
@@ -208,11 +208,12 @@ resource "aws_instance" "nodejs_app_instance" {
     Name = "eng74-amaan-nodeapp_terraform"
   }
 
+
   connection {
     type = "ssh"
     user = "ubuntu"
-    private_key = {file(var.aws_key_path)
-    host = "${self.public_ip}"
+    private_key = file(var.aws_key_path)
+    host = self.public_ip
   }
 
   provisioner "remote-exec" {
@@ -222,6 +223,8 @@ resource "aws_instance" "nodejs_app_instance" {
       "sudo npm install && sudo pm2 start app.js"
     ]
   }
+
+  depends_on = [aws_instance.mongodb_instance]
 }
 
 

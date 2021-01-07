@@ -48,6 +48,14 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
+resource "aws_route_table" "private_rt" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "eng74-amaan-Private_RT_Terraform"
+  }
+}
+
 
 # configuring the route table association
 resource "aws_route_table_association" "public_subnet_asso" {
@@ -55,71 +63,12 @@ resource "aws_route_table_association" "public_subnet_asso" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# create an NACL
-resource "aws_network_acl" "public_nacl" {
-  vpc_id = aws_vpc.vpc.id
-  subnet_ids = [aws_subnet.subnet_public.id]
-
-  egress {
-    protocol = "all"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 0
-    to_port = 0
-  }
-
-  # allow 27017 to the private subnet
-  egress {
-    protocol = "tcp"
-    rule_no = 110
-    action = "allow"
-    cidr_block = "23.15.2.0/24"
-    from_port = 27017
-    to_port = 27017
-  }
-
-  ingress {
-    protocol = "tcp"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "81.104.154.91/32"
-    from_port = 22
-    to_port = 22
-  }
-
-  ingress {
-    protocol = "tcp"
-    rule_no = 200
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 80
-    to_port = 80
-  }
-
-  ingress {
-    protocol = "tcp"
-    rule_no = 300
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 443
-    to_port = 443
-  }
-
-  ingress {
-    protocol = "tcp"
-    rule_no = 400
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 1024
-    to_port = 65535
-  }
-
-
-  tags = {
-    Name = "eng74-amaan-NACL_Public_Terraform"
-  }
+# configuring private route table association
+resource "aws_route_table_association" "private_subnet_asso" {
+  subnet_id = aws_subnet.subnet_private.id
+  route_table_id = aws_route_table.private_rt.id
 }
+
 
 # create private subnet
 resource "aws_subnet" "subnet_private" {
@@ -130,54 +79,6 @@ resource "aws_subnet" "subnet_private" {
   }
 }
 
-# NACLs for Private subnet
-resource "aws_network_acl" "private_nacl" {
-  vpc_id = aws_vpc.vpc.id
-  subnet_ids = [aws_subnet.subnet_private.id]
-
-  # allow SSH from public subnet
-  ingress {
-    protocol = "tcp"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "23.15.1.0/24"
-    from_port = 22
-    to_port = 22
-  }
-
-  # allow 27017 from public subnet
-  ingress {
-    protocol = "tcp"
-    rule_no = 110
-    action = "allow"
-    cidr_block = "23.15.1.0/24"
-    from_port = 27017
-    to_port = 27017
-  }
-
-  ingress {
-    protocol = "tcp"
-    rule_no = 120
-    action = "allow"
-    cidr_block = "81.104.154.91/32"
-    from_port = 22
-    to_port = 22
-  }
-
-  # allow ephemeral to public subnet
-  egress {
-    protocol = "tcp"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "23.15.1.0/24"
-    from_port = 1024
-    to_port = 65535
-  }
-
-  tags = {
-    Name = "eng74-amaan-NACL_Private_NACL"
-  }
-}
 
 #database instance
 resource "aws_instance" "mongodb_instance" {
@@ -191,16 +92,16 @@ resource "aws_instance" "mongodb_instance" {
     Name = "eng74-amaan-DB_terraform"
   }
 
-  connection {
-    type = "ssh"
-    user = "ubuntu"
-    private_key = file(var.aws_key_path)
-    host = self.public_ip
-  }
   provisioner "remote-exec" {
     inline = [
       "sudo systemctl enable mongod.service --now"
     ]
+    connection {
+     type = "ssh"
+     user = "ubuntu"
+     private_key = file(var.aws_key_path)
+     host = self.public_ip
+    }
   }
 }
 
@@ -218,12 +119,6 @@ resource "aws_instance" "nodejs_app_instance" {
   }
 
 
-  connection {
-    type = "ssh"
-    user = "ubuntu"
-    private_key = file(var.aws_key_path)
-    host = self.public_ip
-  }
 
   provisioner "remote-exec" {
     inline = [
@@ -231,6 +126,12 @@ resource "aws_instance" "nodejs_app_instance" {
       "cd /home/ubuntu/app",
       "sudo npm install && sudo pm2 start app.js"
     ]
+    connection {
+     type = "ssh"
+     user = "ubuntu"
+     private_key = file(var.aws_key_path)
+     host = self.public_ip
+    }
   }
 
   depends_on = [aws_instance.mongodb_instance]

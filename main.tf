@@ -185,7 +185,7 @@ resource "aws_instance" "mongodb_instance" {
   connection {
     type = "ssh"
     user = "ubuntu"
-    private_key = "${file(var.aws_key_path)}"
+    private_key = file(var.aws_key_path)
     host = "${self.public_ip}"
   }
   provisioner "remote-exec" {
@@ -211,7 +211,7 @@ resource "aws_instance" "nodejs_app_instance" {
   connection {
     type = "ssh"
     user = "ubuntu"
-    private_key = "${file(var.aws_key_path)}"
+    private_key = {file(var.aws_key_path)
     host = "${self.public_ip}"
   }
 

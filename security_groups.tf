@@ -72,7 +72,7 @@ resource "aws_security_group" "sg_db" {
    }
 
   ingress {
-    description = "SSH from nodejs_app_instance"
+    description = "SSH from me"
     from_port = 22
     to_port = 22
     protocol = "tcp"

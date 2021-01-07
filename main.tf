@@ -81,6 +81,15 @@ resource "aws_network_acl" "public_nacl" {
 
   ingress {
     protocol = "tcp"
+    rule_no = 100
+    action = "allow"
+    cidr_block = "81.104.154.91/32"
+    from_port = 22
+    to_port = 22
+  }
+
+  ingress {
+    protocol = "tcp"
     rule_no = 200
     action = "allow"
     cidr_block = "0.0.0.0/0"
@@ -106,14 +115,6 @@ resource "aws_network_acl" "public_nacl" {
     to_port = 65535
   }
 
-  ingress {
-    protocol = "tcp"
-    rule_no = 500
-    action = "allow"
-    cidr_block = "81.104.154.91/32"
-    from_port = 22
-    to_port = 22
-  }
 
   tags = {
     Name = "eng74-amaan-NACL_Public_Terraform"
@@ -154,6 +155,14 @@ resource "aws_network_acl" "private_nacl" {
     to_port = 27017
   }
 
+  ingress {
+    protocol = "tcp"
+    rule_no = 120
+    action = "allow"
+    cidr_block = "81.104.154.91/32"
+    from_port = 22
+    to_port = 22
+  }
 
   # allow ephemeral to public subnet
   egress {

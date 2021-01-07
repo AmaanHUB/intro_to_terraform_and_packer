@@ -23,7 +23,7 @@ variable "mongodb_SG" {
 }
 
 variable "aws_key_path" {
-  default = "~/.ssh/eng74-amaan-aws.pem"
+  default = "/home/amaan/.ssh/eng74-amaan-aws.pem"
 }
 
 

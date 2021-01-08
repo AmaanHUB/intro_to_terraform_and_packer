@@ -63,12 +63,10 @@ resource "aws_instance" "nodejs_app_instance" {
      host = self.public_ip
     }
   }
-
-  depends_on = [aws_instance.mongodb_instance]
 }
 
 
-output "ip" {
+output "app_ip" {
   value = [aws_instance.nodejs_app_instance.*.public_ip, aws_instance.nodejs_app_instance.*.private_ip]
 }
 

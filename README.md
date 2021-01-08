@@ -107,8 +107,13 @@ resource "aws_instance" "nodejs_app_instance" {
 - [x] Explain AWS_ACCESS_KEY and AWS_SECRET_KEY in bash environment variables, instead of in the file
 - [ ] Explain the `app_packer.json` file
 - [x] Explanation of what terraform is and used for
-	- [ ] Compare with Ansible
 - [x] Create a Terraform file to spin up EC2 instances
 	- [x] Iterate by putting up both EC2 instances (for DB and App)
 - [ ] Explanation of the main.tf
+- [ ] variables.tf explanation
+- [ ] Explanation of security_groups.tf
+- [ ] Explanation of nacls.tf
+- [ ] Explanation of vpcs_subnets_and_route_tables.tf
 - [ ] Automate the commands (starting mongodb and the app) on ![startup](https://stackoverflow.com/questions/62514248/unable-to-execute-remote-command-with-terraform-provisioner-remote-exec#62515717)
+    - [ ] Move into public subnet for this to work
+- [ ] Start modularising as much as possible for practice

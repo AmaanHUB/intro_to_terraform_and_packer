@@ -12,7 +12,7 @@ module "myip" {
 #database instance
 resource "aws_instance" "mongodb_instance" {
   ami = var.mongodb_ami
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   # putting in public for now
   subnet_id = aws_subnet.subnet_public.id
   associate_public_ip_address = true
@@ -39,7 +39,7 @@ resource "aws_instance" "mongodb_instance" {
 resource "aws_instance" "nodejs_app_instance" {
   # ami_id of the app image created by packer
   ami = var.nodejs_app_ami
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   subnet_id = aws_subnet.subnet_public.id
   associate_public_ip_address = true
   key_name = var.key_name

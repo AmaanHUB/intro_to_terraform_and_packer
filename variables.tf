@@ -6,6 +6,10 @@ variable "key_name" {
   default = "eng74-amaan-aws"
 }
 
+variable "instance_type" {
+  default = "t2.micro"
+}
+
 variable "nodejs_app_ami" {
   default = "ami-090c52809b287ad01"
 }

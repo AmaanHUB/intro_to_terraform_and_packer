@@ -10,6 +10,7 @@ resource "aws_network_acl" "public_nacl" {
     action = "allow"
     cidr_block = "${module.myip.address}/32"
     from_port = 22
+    to_port = 22
   }
 
   ingress {

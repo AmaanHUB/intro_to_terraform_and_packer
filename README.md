@@ -87,6 +87,20 @@ resource "aws_instance" "nodejs_app_instance" {
 ```
 
 #### Security Groups (security_groups.tf)
+//TODO
+
+#### NACLs (nacls.tf)
+//TODO
+
+
+# Load Balancing, High Availability, And Load Scaling
+
+* **Load Balancing**→
+  * When the load or resources used reaches a certain value (usually set by the admin), the network traffic (for example) can be rerouted to server/containers/etc that are being used less, so that the load is spread (.i.e. balanced) across many services
+* **Load (Auto)Scaling**→
+  * More (for example) servers are spun up to cope with an increased load, potentially done automatically (autoscaling)
+* **High Availability**→
+ * Keeping a service available at all times or as much as possible. This can be done by having many cloud providers used across many locations to prevent a single point of failure
 
 # TODO
 - [x] Explain what packer is and used for

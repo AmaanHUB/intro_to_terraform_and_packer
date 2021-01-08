@@ -33,7 +33,7 @@ resource "aws_subnet" "subnet_private" {
   vpc_id = aws_vpc.vpc.id
   cidr_block = "23.15.2.0/24"
   tags = {
-    Name = "eng74-amaan-Subnet_Private_Terraform"
+    Name = "eng74-amaan-Private_Subnet_Terraform"
   }
 }
 

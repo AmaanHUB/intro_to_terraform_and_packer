@@ -3,24 +3,6 @@ resource "aws_network_acl" "public_nacl" {
   vpc_id = aws_vpc.vpc.id
   subnet_ids = [aws_subnet.subnet_public.id]
 
-  egress {
-    protocol = "all"
-    rule_no = 100
-    action = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port = 0
-    to_port = 0
-  }
-
-  # allow 27017 to the private subnet
-  egress {
-    protocol = "tcp"
-    rule_no = 110
-    action = "allow"
-    cidr_block = "23.15.2.0/24"
-    from_port = 27017
-    to_port = 27017
-  }
 
   ingress {
     protocol = "tcp"
@@ -57,6 +39,24 @@ resource "aws_network_acl" "public_nacl" {
     to_port = 65535
   }
 
+  egress {
+    protocol = "all"
+    rule_no = 100
+    action = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port = 0
+    to_port = 0
+  }
+
+  # allow 27017 to the private subnet
+  egress {
+    protocol = "tcp"
+    rule_no = 110
+    action = "allow"
+    cidr_block = "23.15.2.0/24"
+    from_port = 27017
+    to_port = 27017
+  }
 
   tags = {
     Name = "eng74-amaan-NACL_Public_Terraform"

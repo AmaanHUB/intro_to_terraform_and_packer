@@ -100,7 +100,7 @@ resource "aws_instance" "nodejs_app_instance" {
 * **Load (Auto)Scaling**→
   * More (for example) servers are spun up to cope with an increased load, potentially done automatically (autoscaling)
 * **High Availability**→
- * Keeping a service available at all times or as much as possible. This can be done by having many cloud providers used across many locations to prevent a single point of failure
+  * Keeping a service available at all times or as much as possible. This can be done by having many cloud providers used across many locations to prevent a single point of failure
 
 # TODO
 - [x] Explain what packer is and used for

@@ -13,7 +13,8 @@ module "myip" {
 resource "aws_instance" "mongodb_instance" {
   ami = var.mongodb_ami
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.subnet_private.id
+  # putting in public for now
+  subnet_id = aws_subnet.subnet_public.id
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.sg_db.id]
   key_name = var.key_name

@@ -53,6 +53,7 @@ resource "aws_instance" "nodejs_app_instance" {
   provisioner "remote-exec" {
     inline = [
       "cd /home/ubuntu/app",
+      "sudo npm run seeds/seed.js"
       "sudo npm install && sudo DB_HOST=${aws_instance.mongodb_instance.private_ip} pm2 start app.js"
     ]
     connection {
